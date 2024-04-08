@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useFormik } from "formik";
 import { LoginValidationSchema } from "../../utils/validationSchema";
@@ -75,7 +75,7 @@ const Login = () => {
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="h5" component="h1" align="center" gutterBottom>
-              Welcome to Image Recognition
+              Welcome to Photo Labelling System
             </Typography>
             <form className={classes.form} onSubmit={formik.handleSubmit}>
               <TextField
@@ -129,9 +129,9 @@ const Login = () => {
               </Grid>
               <Grid container justifyContent="center">
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <NavLink to="/signup" className="link">
                     Don't have an Account? Sign Up
-                  </Link>
+                  </NavLink>
                 </Grid>
               </Grid>
             </form>
