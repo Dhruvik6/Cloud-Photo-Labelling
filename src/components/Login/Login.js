@@ -120,18 +120,10 @@ const Login = () => {
               >
                 {formik.isSubmitting ? "Logging in..." : "Login"}
               </Button>
+
               <Grid container justifyContent="center">
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    Forgot Password?
-                  </Link>
-                </Grid>
-              </Grid>
-              <Grid container justifyContent="center">
-                <Grid item>
-                  <NavLink to="/signup" className="link">
-                    Don't have an Account? Sign Up
-                  </NavLink>
+                  <NavLink to="/signup">Don't have an Account? Sign Up</NavLink>
                 </Grid>
               </Grid>
             </form>

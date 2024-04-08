@@ -30,9 +30,8 @@ const useStyles = makeStyles((theme) => ({
     borderColor: "#000",
   },
   form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: theme.spacing(2),
+    width: "100%",
+    marginTop: 16, // Adjust the value as needed
   },
 }));
 
