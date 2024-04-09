@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "./Login/Login.css";
 import { toast } from "react-toastify";
 import { RecognizeImage } from "../apis/apis";
-import Spinner from "./Spinner/Spinner";
-import { Container, Grid, TextField, Button, CircularProgress, Card, CardContent, Typography } from "@mui/material";
+import { Container, Grid, Button, CircularProgress, Card, CardContent, Typography } from "@mui/material";
 const Home = () => {
   const [imagePreview, setImagePreview] = useState("");
   const [fileType, setFileType] = useState("");

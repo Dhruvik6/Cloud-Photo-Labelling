@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { SignUpValidationSchema } from "../../utils/validationSchema";
 import { toast } from "react-toastify";
-import { 
+import {
   Container,
   Typography,
   TextField,
