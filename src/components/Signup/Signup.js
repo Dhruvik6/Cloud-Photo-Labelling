@@ -29,24 +29,33 @@ const Signup = () => {
     },
     validationSchema: SignUpValidationSchema,
     onSubmit: async (data) => {
-      const response = await CreateUser(data);
-      if (response?.data?.isRegistered) {
-        const requestBody = {
-          mobileNo: data.mobile,
-        };
-        const sendOTPResponse = await SendOTP(requestBody);
-        if (sendOTPResponse?.data?.isSuccess) {
-          localStorage.setItem("otp", sendOTPResponse?.data?.otp);
-          toast.success(sendOTPResponse?.data?.message);
-          navigate("/verify");
+      setIsLoading(true);
+      try {
+        const response = await CreateUser(data);
+        if (response?.data?.isRegistered) {
+          const requestBody = {
+            mobileNo: data.mobile,
+          };
+          const sendOTPResponse = await SendOTP(requestBody);
+          if (sendOTPResponse?.data?.isSuccess) {
+            localStorage.setItem("otp", sendOTPResponse?.data?.otp);
+            toast.success(sendOTPResponse?.data?.message);
+            navigate("/verify");
+          } else {
+            toast.error("Error occurred in registration.");
+          }
         } else {
-          toast.error("Error occured in registration.");
+          toast.error("Error occurred in registration.");
         }
-      } else {
-        toast.error("Error occured in registration.");
+      } catch (error) {
+        console.error(error);
+        toast.error("Error occurred in registration.");
+      } finally {
+        setIsLoading(false);
       }
     },
   });
+
 
   const styles = {
     container: {
