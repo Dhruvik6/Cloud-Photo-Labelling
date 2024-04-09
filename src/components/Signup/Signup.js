@@ -3,6 +3,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { SignUpValidationSchema } from "../../utils/validationSchema";
 import { toast } from "react-toastify";
+import { 
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Link,
+  Card,
+  CardContent,
+} from "@mui/material";
 import "./Signup.css";
 import { CreateUser, SendOTP } from "../../apis/apis";
 
@@ -36,86 +45,112 @@ const Signup = () => {
     },
   });
 
-  return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-6 col-lg-4">
-          <form className="login-form" onSubmit={formik.handleSubmit}>
-            <h2>Signup</h2>
-            <p className="welcomeText">Welcome to Image Recognition APP</p>
-            <div className="form-group">
-              <input
-                type="email"
-                name="email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="form-control inputField"
-                placeholder="Email *"
-                required
-              />
-              {formik.touched.email && formik.errors.email && (
-                <div className="error">{formik.errors.email}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                name="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="form-control inputField"
-                placeholder="Password *"
-                required
-              />
-              {formik.touched.password && formik.errors.password && (
-                <div className="error">{formik.errors.password}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <input
-                type="name"
-                name="name"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="form-control inputField"
-                placeholder="Name *"
-                required
-              />
-              {formik.touched.name && formik.errors.name && (
-                <div className="error">{formik.errors.name}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <input
-                type="mobile"
-                name="mobile"
-                value={formik.values.mobile}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="form-control inputField"
-                placeholder="Mobile *"
-                required
-              />
-              {formik.touched.mobile && formik.errors.mobile && (
-                <div className="error">{formik.errors.name}</div>
-              )}
-            </div>
-            <button type="submit" className="btn btn-block">
-              Signup
-            </button>
+  const styles = {
+    container: {
+      marginTop: 50,
+    },
+    cardContent: {
+      padding: 30,
+    },
+    welcomeText: {
+      marginTop: 10,
+      marginBottom: 20,
+    },
+    inputField: {
+      marginBottom: 20,
+    },
+    submitButton: {
+      marginTop: 20,
+    },
+    createAccount: {
+      marginTop: 20,
+      textAlign: "center",
+    },
+    link: {
+      textDecoration: "none",
+    },
+  };
 
-            <div className="createAccount">
-              <NavLink to="/" className="link">
+  return (
+    <Container maxWidth="md" style={styles.container}>
+      <Card variant="outlined">
+        <CardContent style={styles.cardContent}>
+          <Typography variant="h4" align="center">Signup</Typography>
+          <Typography variant="body1" align="center" style={styles.welcomeText}>Welcome to Photo Labelling System</Typography>
+          <form onSubmit={formik.handleSubmit} className="login-form">
+            <TextField
+              type="email"
+              name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              label="Email"
+              variant="outlined"
+              fullWidth
+              style={styles.inputField}
+              required
+              error={formik.touched.email && !!formik.errors.email}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+            <TextField
+              type="password"
+              name="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              label="Password"
+              variant="outlined"
+              fullWidth
+              style={styles.inputField}
+              required
+              error={formik.touched.password && !!formik.errors.password}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+            <TextField
+              type="text"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              label="Name"
+              variant="outlined"
+              fullWidth
+              style={styles.inputField}
+              required
+              error={formik.touched.name && !!formik.errors.name}
+              helperText={formik.touched.name && formik.errors.name}
+            />
+            <TextField
+              type="tel"
+              name="mobile"
+              value={formik.values.mobile}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              label="Mobile"
+              variant="outlined"
+              fullWidth
+              style={styles.inputField}
+              required
+              error={formik.touched.mobile && !!formik.errors.mobile}
+              helperText={formik.touched.mobile && formik.errors.mobile}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              style={styles.submitButton}
+            >
+              Signup
+            </Button>
+            <div style={styles.createAccount}>
+              <Link to="/" component={NavLink} style={styles.link}>
                 Already have an Account?
-              </NavLink>
+              </Link>
             </div>
           </form>
-        </div>
-      </div>
-    </div>
+        </CardContent>
+      </Card>
+    </Container>
   );
 };
 

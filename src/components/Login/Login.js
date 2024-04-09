@@ -62,7 +62,7 @@ const Login = () => {
     <Card variant="outlined">
       <CardContent>
         <Typography variant="h4" align="center">Login</Typography>
-        <Typography variant="body1" align="center" className="welcomeText">Welcome to Image Recognition</Typography>
+        <Typography variant="body1" align="center" className="welcomeText">Welcome to Photo Labelling System</Typography>
         <form onSubmit={formik.handleSubmit} style={formStyles}>
           <TextField
             type="email"
