@@ -4,51 +4,12 @@ import { useAuth } from "../../context/AuthContext";
 import { useFormik } from "formik";
 import { LoginValidationSchema } from "../../utils/validationSchema";
 import { toast } from "react-toastify";
-
-import {
-  TextField,
-  Button,
-  Typography,
-  Link,
-  Grid,
-  Container,
-  Card,
-  CardContent,
-} from "@mui/material";
-
-import { makeStyles } from "@mui/styles";
-
 import "./Login.css";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginTop: 64, // Adjust the value as needed
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  form: {
-    width: "100%",
-    marginTop: 16, // Adjust the value as needed
-  },
-  submit: {
-    marginTop: 24, // Adjust the value as needed
-    marginBottom: 16, // Adjust the value as needed
-  },
-  card: {
-    padding: 20,
-    width: "100%",
-    maxWidth: 400,
-    borderColor: "#000",
-  },
-}));
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const auth = useAuth();
   const navigate = useNavigate();
-
-  const classes = useStyles();
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -68,69 +29,69 @@ const Login = () => {
       }
     },
   });
-
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.root}>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography variant="h5" component="h1" align="center" gutterBottom>
-              Welcome to Photo Labelling System
-            </Typography>
-            <form className={classes.form} onSubmit={formik.handleSubmit}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6 col-lg-4">
+          <form className="login-form" onSubmit={formik.handleSubmit}>
+            <h2>Login</h2>
+            <p className="welcomeText">Welcome to Photo Labelling System</p>
+            <div className="form-group">
+              <input
+                type="email"
                 name="email"
-                autoComplete="email"
-                autoFocus
                 value={formik.values.email}
                 onChange={formik.handleChange}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
+                onBlur={formik.handleBlur}
+                className="form-control inputField"
+                placeholder="Email *"
                 required
-                fullWidth
-                name="password"
-                label="Password"
+              />
+              {formik.touched.email && formik.errors.email && (
+                <div className="error">{formik.errors.email}</div>
+              )}
+            </div>
+            <div className="form-group">
+              <input
                 type="password"
-                id="password"
-                autoComplete="current-password"
+                name="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
-                error={
-                  formik.touched.password && Boolean(formik.errors.password)
-                }
-                helperText={formik.touched.password && formik.errors.password}
+                onBlur={formik.handleBlur}
+                className="form-control inputField"
+                placeholder="Password *"
+                required
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                disabled={formik.isSubmitting} // Disable button while submitting
-              >
-                {formik.isSubmitting ? "Logging in..." : "Login"}
-              </Button>
+              {formik.touched.password && formik.errors.password && (
+                <div className="error">{formik.errors.password}</div>
+              )}
+            </div>
+            <div>
+              <NavLink to="/forgotpassword" className="link forgotpassword">
+                Forgot Password?
+              </NavLink>
+            </div>
+            <button
+              type="submit"
+              className="btn btn-block"
+              disabled={isLoading}
+            >
+              Login
+            </button>
 
-              <Grid container justifyContent="center">
-                <Grid item>
-                  <NavLink to="/signup">Don't have an Account? Sign Up</NavLink>
-                </Grid>
-              </Grid>
-            </form>
-          </CardContent>
-        </Card>
+            <div className="createAccount">
+              <NavLink
+                to="/signup"
+                className="link"
+                style={{ color: "#1976D2" }}
+              >
+                Don't have an Account?
+              </NavLink>
+            </div>
+          </form>
+        </div>
       </div>
-    </Container>
+    </div>
   );
 };
 
