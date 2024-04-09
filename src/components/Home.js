@@ -51,6 +51,13 @@ const Home = () => {
       setIsLoading(false);
     }
   };
+  const handleResetImage = () => {
+    setImagePreview("");
+    setFileType("");
+    setFileName("");
+    setBase64Image("");
+    setData("");
+  };
 
   return (
     <Container>
@@ -77,6 +84,17 @@ const Home = () => {
                   variant="contained"
                 >
                   Recognize Image
+                </Button>
+              )}
+               {imagePreview && (
+                <Button
+                  fullWidth
+                  onClick={handleResetImage}
+                  variant="outlined"
+                  color="error"
+                  style={{ marginTop: "10px" }}
+                >
+                  Reset Image
                 </Button>
               )}
             </CardContent>

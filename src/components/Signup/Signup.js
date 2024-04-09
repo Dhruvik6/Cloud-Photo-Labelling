@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { SignUpValidationSchema } from "../../utils/validationSchema";
@@ -11,12 +11,15 @@ import {
   Link,
   Card,
   CardContent,
+  CircularProgress,
 } from "@mui/material";
 import "./Signup.css";
 import { CreateUser, SendOTP } from "../../apis/apis";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -139,8 +142,9 @@ const Signup = () => {
               variant="contained"
               fullWidth
               style={styles.submitButton}
+              disabled={isLoading} // Disable button when loading
             >
-              Signup
+              {isLoading ? <CircularProgress size={24} /> : "Signup"}
             </Button>
             <div style={styles.createAccount}>
               <Link to="/" component={NavLink} style={styles.link}>
