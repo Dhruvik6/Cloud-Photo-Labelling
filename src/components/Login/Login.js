@@ -4,9 +4,25 @@ import { useAuth } from "../../context/AuthContext";
 import { useFormik } from "formik";
 import { LoginValidationSchema } from "../../utils/validationSchema";
 import { toast } from "react-toastify";
+import { 
+  Container,
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  Link,
+  CircularProgress,
+  Card,
+  CardContent,
+} from "@mui/material";
+import {style} from "@mui/styles";
 import "./Login.css";
 
+
 const Login = () => {
+
+ 
+
   const [isLoading, setIsLoading] = useState(false);
   const auth = useAuth();
   const navigate = useNavigate();
@@ -29,66 +45,73 @@ const Login = () => {
       }
     },
   });
-  return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-md-6 col-lg-4">
-          <form className="login-form" onSubmit={formik.handleSubmit}>
-            <h2>Login</h2>
-            <p className="welcomeText">Welcome to Image Recognition</p>
-            <div className="form-group">
-              <input
-                type="email"
-                name="email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="form-control inputField"
-                placeholder="Email *"
-                required
-              />
-              {formik.touched.email && formik.errors.email && (
-                <div className="error">{formik.errors.email}</div>
-              )}
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                name="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="form-control inputField"
-                placeholder="Password *"
-                required
-              />
-              {formik.touched.password && formik.errors.password && (
-                <div className="error">{formik.errors.password}</div>
-              )}
-            </div>
-            <div>
-              <NavLink to="/forgotpassword" className="link forgotpassword">
-                Forgot Password?
-              </NavLink>
-            </div>
-            <button
-              type="submit"
-              className="btn btn-block"
-              disabled={isLoading}
-            >
-              Login
-            </button>
 
-            <div className="createAccount">
-              <NavLink to="/signup" className="link">
-                Don't have an Account?
-              </NavLink>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
+  const inputStyles = {
+    marginBottom: "16px",
+  };
+  const formStyles = {
+    padding: "16px",
+  };
+
+  const linkStyles = {
+    textDecoration: "none",
+    color: "primary",
+  };
+  return (
+    <Container maxWidth="md" className="container">
+    <Card variant="outlined">
+      <CardContent>
+        <Typography variant="h4" align="center">Login</Typography>
+        <Typography variant="body1" align="center" className="welcomeText">Welcome to Image Recognition</Typography>
+        <form onSubmit={formik.handleSubmit} style={formStyles}>
+          <TextField
+            type="email"
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            label="Email"
+            variant="outlined"
+            fullWidth
+            style={inputStyles}
+            required
+            error={formik.touched.email && !!formik.errors.email}
+            helperText={formik.touched.email && formik.errors.email}
+          />
+          <TextField
+            type="password"
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            label="Password"
+            variant="outlined"
+            fullWidth
+            style={inputStyles}
+            required
+            error={formik.touched.password && !!formik.errors.password}
+            helperText={formik.touched.password && formik.errors.password}
+          />
+         
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            disabled={isLoading}
+          >
+            {isLoading ? <CircularProgress size={24} /> : "Login"}
+          </Button>
+          <div className="createAccount">
+            <Link to="/signup" component={NavLink} style={linkStyles} className="link">
+              Don't have an Account?
+            </Link>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
+  </Container>
+);
 };
 
 export default Login;
