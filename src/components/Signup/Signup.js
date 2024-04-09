@@ -42,7 +42,7 @@ const Signup = () => {
         <div className="col-md-6 col-lg-4">
           <form className="login-form" onSubmit={formik.handleSubmit}>
             <h2>Signup</h2>
-            <p className="welcomeText">Welcome to Photo Labelling System</p>
+            <p className="welcomeText">Welcome to Image Recognition APP</p>
             <div className="form-group">
               <input
                 type="email"

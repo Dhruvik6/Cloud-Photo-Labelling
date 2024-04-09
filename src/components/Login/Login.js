@@ -35,7 +35,7 @@ const Login = () => {
         <div className="col-md-6 col-lg-4">
           <form className="login-form" onSubmit={formik.handleSubmit}>
             <h2>Login</h2>
-            <p className="welcomeText">Welcome to Photo Labelling System</p>
+            <p className="welcomeText">Welcome to Image Recognition</p>
             <div className="form-group">
               <input
                 type="email"
@@ -80,11 +80,7 @@ const Login = () => {
             </button>
 
             <div className="createAccount">
-              <NavLink
-                to="/signup"
-                className="link"
-                style={{ color: "#1976D2" }}
-              >
+              <NavLink to="/signup" className="link">
                 Don't have an Account?
               </NavLink>
             </div>
