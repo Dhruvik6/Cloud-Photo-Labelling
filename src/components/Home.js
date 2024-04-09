@@ -3,7 +3,7 @@ import "./Login/Login.css";
 import { toast } from "react-toastify";
 import { RecognizeImage } from "../apis/apis";
 import Spinner from "./Spinner/Spinner";
-
+import { Container, Grid, TextField, Button, CircularProgress, Card, CardContent, Typography } from "@mui/material";
 const Home = () => {
   const [imagePreview, setImagePreview] = useState("");
   const [fileType, setFileType] = useState("");
@@ -54,60 +54,65 @@ const Home = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6 col-lg-6">
-          <form>
-            <div className="input-group mb-3">
-              <div className="custom-file">
-                <input
-                  type="file"
-                  name="file"
-                  className="custom-file-input"
-                  id="inputFile"
-                  required
-                  onChange={handleImageChange}
-                />
-                <label className="custom-file-label" htmlFor="inputFile">
-                  Choose file
-                </label>
+    <Container>
+      <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ height: "100vh" }}>
+        <Grid item md={6} lg={6}>
+          <Card>
+            <CardContent>
+              <input
+                type="file"
+                name="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ marginBottom: "10px" }}
+              />
+              {imagePreview && <img src={imagePreview} alt="Preview" style={{ maxWidth: "100%", marginBottom: "10px" }} />}
+              {isLoading ? (
+                <Button fullWidth disabled>
+                  <CircularProgress size={24} />
+                </Button>
+              ) : (
+                <Button
+                  fullWidth
+                  onClick={handleRecognize}
+                  variant="contained"
+                >
+                  Recognize Image
+                </Button>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item md={6} lg={6}>
+          <Card>
+            <CardContent>
+              <div>
+                <Typography variant="h6" component="h2" gutterBottom align="center">
+                  Recognition Results
+                </Typography>
+                <table border={1} cellPadding={5} style={{ margin: "0 auto" }}>
+                  <thead>
+                    <tr>
+                      <th>Labels</th>
+                      <th>Confidence</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data?.labels?.map((val, index) => (
+                      <tr key={index}>
+                        <td>{val.label}</td>
+                        <td>{val.confidence}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            </div>
-          </form>
-          {imagePreview && <img src={imagePreview} alt="Preview" />}
-          {isLoading ? (
-            <div className="btn btn-block spinnerContainer">
-              <Spinner />
-            </div>
-          ) : (
-            <button
-              type="submit"
-              className="btn btn-block"
-              onClick={handleRecognize}
-              style={{marginBottom:"50px"}}
-            >
-              Recognize Image
-            </button>
-          )}
-        </div>
-        <div className="col-md-6 col-lg-6">
-          <div>
-            <table border={2} cellPadding={5}>
-              <tr>
-                <th>Labels</th>
-                <th>Confidence</th>
-              </tr>
-              {data?.labels?.map((val, index) => (
-                <tr key={index}>
-                  <td>{val.label}</td>
-                  <td>{val.confidence}</td>
-                </tr>
-              ))}
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
+  
   );
 };
 

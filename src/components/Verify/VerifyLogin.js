@@ -2,6 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
+import { 
+  Container,
+  Typography,
+  TextField,
+  Button,
+} from "@mui/material";
 import "./VerifyLogin.css";
 import { VerifyOTP } from "../../apis/apis";
 
@@ -26,37 +32,58 @@ const VerifyLogin = () => {
       }
     },
   });
+
+  const styles = {
+    container: {
+      marginTop: 50,
+    },
+    welcomeText: {
+      marginTop: 10,
+      marginBottom: 20,
+    },
+    inputField: {
+      marginBottom: 20,
+    },
+    submitButton: {
+      marginTop: 20,
+    },
+  };
+
   return (
-    <div className="container">
+    <Container maxWidth="md" style={styles.container}>
       <div className="row justify-content-center">
         <div className="col-md-6 col-lg-4">
-          <form className="login-form" onSubmit={formik.handleSubmit}>
-            <h2>Verify Mobile</h2>
-            <p className="welcomeText">
+          <form onSubmit={formik.handleSubmit} className="login-form">
+            <Typography variant="h4" align="center">Verify Mobile</Typography>
+            <Typography variant="body1" align="center" style={styles.welcomeText}>
               We will never share your details with anyone
-            </p>
+            </Typography>
             <div className="form-group">
-              <input
+              <TextField
                 type="text"
                 name="otp"
                 value={formik.values.otp}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                className="form-control inputField"
-                placeholder="OTP *"
+                label="OTP"
+                variant="outlined"
+                fullWidth
+                style={styles.inputField}
                 required
               />
             </div>
-            <button
+            <Button
               type="submit"
-              className="btn btn-block"
+              variant="contained"
+              fullWidth
+              style={styles.submitButton}
             >
               Verify OTP
-            </button>
+            </Button>
           </form>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
